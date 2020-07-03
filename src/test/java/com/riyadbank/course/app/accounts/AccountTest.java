@@ -28,7 +28,7 @@ public class AccountTest {
 	
 	/*TODO-08 If you are in this step,  last test should be passed, now please uncomment the code below and make a properly implementation
 	 *  due to this:
-	 * a) Using Java8 Lambdas transform the List<Account> accounts to a Map with a using a properly key.
+	 * a) Using Java8 Lambdas transform the List<Account> accounts to a Map<Long,Account> with a using a properly key.
 	 * b) Using Java8 Lambdas sort the List using "date" field in descending order (latest first).
 	 * c) Using Java8 Lambdas pick the account with the highest balance in the list and return it as a single object (Account).
 	 */
@@ -36,7 +36,7 @@ public class AccountTest {
 /*	@Test
 	public void todo07() {
 		List<Account> accounts = accountRepository.findAll();
-		Map<?,Account> mapAccounts = null;
+		Map<?,?> mapAccounts = null;
 		
 		// Makes an implementation to transform the accounts into a map.
 		 
