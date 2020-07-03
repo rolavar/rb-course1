@@ -45,7 +45,9 @@ public class AccountTest {
 		
 		//Sort the account list with the requirements described in the description
 		 
-		assertEquals(LocalDateTime.of(2020, 07, 03, 12, 33).toString(), accounts.get(0).getDate().toString(), "DateTime doesn't match with the expected");
+		assertEquals("DateTime doesn't match with the expected", 
+			LocalDateTime.of(2020, 07, 03, 12, 33).toString(), 
+			accounts.get(0).getDate().toString());
 		
 		
 		//Pick the Account with the highest balance in the list 
