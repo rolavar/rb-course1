@@ -7,4 +7,6 @@ import com.riyadbank.course.app.model.Account;
 public interface IAccountRepository {
 
 	public List<Account> findAll();
+	public void updateAccount(Account account);
+	long createAccount(Account newAccount);
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,20 @@ public class StubAccountRepository implements IAccountRepository{
 				.stream()
 				.map(e -> e.getValue())
 				.collect(Collectors.toList());
+	}
+	@Override
+	public long createAccount(Account newAccount) {
+		long id = Long.parseLong(UUID.randomUUID().toString());
+		accounts.put(id, newAccount);
+		return id;
+	}
+	@Override
+	public void updateAccount(Account account) {
+		Account accountToUpdate = accounts.get(account.getId());
+		accountToUpdate.setBalance(account.getBalance());
+		accountToUpdate.setCreditCardNumber(account.getCreditCardNumber());
+		accountToUpdate.setDate(account.getDate());
+		accounts.put(account.getId(), accountToUpdate);
 	}
 
 }
