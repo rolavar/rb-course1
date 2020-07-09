@@ -1,11 +1,12 @@
 package com.riyadbank.course.app.repository.account;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
@@ -34,7 +35,8 @@ public class StubAccountRepository implements IAccountRepository{
 	}
 	@Override
 	public long createAccount(Account newAccount) {
-		long id = Long.parseLong(UUID.randomUUID().toString());
+		long id = Timestamp.from(Instant.now()).getTime();
+		newAccount.setId(id);
 		accounts.put(id, newAccount);
 		return id;
 	}
@@ -45,6 +47,10 @@ public class StubAccountRepository implements IAccountRepository{
 		accountToUpdate.setCreditCardNumber(account.getCreditCardNumber());
 		accountToUpdate.setDate(account.getDate());
 		accounts.put(account.getId(), accountToUpdate);
+	}
+	@Override
+	public Account findById(Long id) {
+		return accounts.values().stream().filter(a -> a.getId() == id).findFirst().orElseThrow(() -> new RuntimeException("Account not found"));
 	}
 
 }

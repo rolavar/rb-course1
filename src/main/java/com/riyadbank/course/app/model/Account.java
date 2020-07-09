@@ -11,7 +11,7 @@ public class Account {
 	private LocalDateTime date;
 	private long personId;
 	
-	
+	public Account() {}
 	public  Account(long id, BigDecimal balance, String creditCardNumber, LocalDateTime date, long personId) {
 		super();
 		this.id = id;

@@ -8,5 +8,6 @@ public interface IAccountRepository {
 
 	public List<Account> findAll();
 	public void updateAccount(Account account);
-	long createAccount(Account newAccount);
+	public long createAccount(Account newAccount);
+	public Account findById(Long id);
 }

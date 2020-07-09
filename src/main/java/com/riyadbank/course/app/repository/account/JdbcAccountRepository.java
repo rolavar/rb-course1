@@ -65,7 +65,7 @@ public class JdbcAccountRepository implements IAccountRepository{
 
 	@Override
 	public void updateAccount(Account account) {
-		String sql = "UPDATE balance,creditCardNumber,date FROM ACCOUNT WHERE id = ?";
+		String sql = "UPDATE ACCOUNT set balance = ?, creditCardNumber = ?, date = ? WHERE id = ?";
 		PreparedStatement ps = null;
 		Connection conn = null;
 		try{
@@ -74,6 +74,7 @@ public class JdbcAccountRepository implements IAccountRepository{
 			ps.setBigDecimal(1, account.getBalance());
 			ps.setString(2, account.getCreditCardNumber());
 			ps.setTimestamp(3, Timestamp.valueOf(account.getDate()));
+			ps.setLong(4, account.getId());
 			ps.executeUpdate();
 			ps.close();
 		}catch(Exception ex) {
@@ -103,6 +104,30 @@ public class JdbcAccountRepository implements IAccountRepository{
 			throw new RuntimeException("SQL exception in createAccount", e);
 		}
 				
+	}
+
+	@Override
+	public Account findById(Long id) {
+		String sql = "SELECT id,balance,creditCardNumber,date,personId FROM ACCOUNT WHERE id = ?";
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		Account account = null;
+		try{
+			conn = dataSource.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				account = mapAccount(rs);
+			}
+			ps.close();
+		}catch(SQLException e){
+			throw new RuntimeException("SQL exception occurred finding all accounts", e);
+		}
+		
+		return account;
 	}
 
 }
